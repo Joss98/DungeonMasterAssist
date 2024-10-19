@@ -25,5 +25,5 @@ pip install -r requirements.txt
 *Subject to change - a work in progress.*
 
 ```shell
-python main.py roll 1d20
+python roll.py roll 1d20
 ```
