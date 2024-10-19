@@ -9,7 +9,7 @@ def main():
 @main.command()
 @click.argument('dice_notation')
 def roll(dice_notation):
-    """Roll dice using D&D notation."""
+    """Roll dice using D&D notation (e.g., 2d6+3)."""
     try:
         num_dice, num_sides, modifier = dice_logic.parse_dice_notation(dice_notation)
         results = dice_logic.roll_dice(num_dice, num_sides)
