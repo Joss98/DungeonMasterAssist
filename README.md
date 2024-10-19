@@ -10,20 +10,42 @@ A command-line tool for Dungeon Masters to handle dice rolling and common DM tas
 git clone https://github.com/joss98/DungeonMasterAssist.git
 ```
 
-2. Set up a virtual environment and install dependencies: 
+2. Navigate to the project directory
 
-```shell
+```bash
+cd DungeonMasterAssist
+```
+
+3. Create and activate a virtual environment
+
+```bash
 python -m venv venv
 
 source venv/bin/activate
+```
 
-pip install -r requirements.txt
+4. Install the package in editable mode
+```bash
+pip install --editable .
 ```
 
 ## Usage
 
-*Subject to change - a work in progress.*
+Use the ```dma``` command followed by the desired sub-command.
 
-```shell
-python roll.py roll 1d20
+### Roll Dice
+```bash
+dma roll 2d6+3
+```
+
+#### Example output
+```bash
+Rolling 2d6+3: [1, 6] +3 (total: 10)
+```
+
+### Help
+
+To see all available commands and options:
+```bash
+dma --help
 ```
