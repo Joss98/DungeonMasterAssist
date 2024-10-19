@@ -46,3 +46,7 @@ To see all available commands and options:
 ```bash
 dma --help
 ```
+
+## Changelog
+
+You can view the [full changelog here](./CHANGELOG.md).
