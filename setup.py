@@ -15,7 +15,7 @@ setup(
         ],
     },
     license='MIT',
-    description='A command-line assistant for Dungeon Masters in D&D 5e.',
+    description='A command-line assistant for  D&D 5e Dungeon Masters.',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/joss98/DungeonMasterAssist',

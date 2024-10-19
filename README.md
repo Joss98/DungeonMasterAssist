@@ -5,29 +5,26 @@ A command-line tool for Dungeon Masters to handle dice rolling and common DM tas
 ## Installation
 
 1. Clone the repository:
-
-```shell
-git clone https://github.com/joss98/DungeonMasterAssist.git
-```
+    ```shell
+    git clone https://github.com/joss98/DungeonMasterAssist.git
+    ```
 
 2. Navigate to the project directory
-
-```bash
-cd DungeonMasterAssist
-```
+    ```bash
+    cd DungeonMasterAssist
+    ```
 
 3. Create and activate a virtual environment
+    ```bash
+    python -m venv venv
 
-```bash
-python -m venv venv
-
-source venv/bin/activate
-```
+    source venv/bin/activate
+    ```
 
 4. Install the package in editable mode
-```bash
-pip install --editable .
-```
+    ```bash
+    pip install --editable .
+    ```
 
 ## Usage
 
