@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [1.1.0] - 2024-11-23
+
+### Added
+- **Interactive Mode**: Introduced an interactive CLI mode (`dma interactive`) that allows users to enter commands in a REPL-like environment.
+  - **Command Completion**: Implemented auto-completion for available commands within interactive mode.
+  - **History Support**: Users can navigate through their command history using the up/down arrow keys.
+  - **Help Command**: Added a `help` command within interactive mode to display available commands and usage information.
+- **Custom Completer**: Added a custom completer to enhance user experience in interactive mode.
+
+### Fixed
+- **Error Handling**: Improved error messages and exception handling within interactive mode.
+- **Keyboard Interrupts**: Handled `KeyboardInterrupt` and `EOFError` exceptions to prevent crashes during unexpected exits.
+
 ## [1.0.2] - 2024-10-19
 
 ### Fixed
@@ -26,68 +39,3 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - **Roll results display**: Outputs individual dice results and the total sum.
 - **Basic test suite**: Unit tests for core dice rolling functionality.
 - **Initial project setup**: Project structure established, with `setup.py` for packaging and a virtual environment setup for local development.
-
----
-
-### Example of Using the CLI in Version 1.0.0
-
-```bash
-# Rolling a d20:
-dma roll 1d20
-
-# Rolling a 3d6+2:
-dma roll 3d6+2
-```
-
----
-
-### Instructions for Setting Up
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/joss98/DungeonMasterAssist.git
-   ```
-
-2. **Navigate to the project directory:**
-   ```bash
-   cd DungeonMasterAssist
-   ```
-
-3. **Create and activate a virtual environment:**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate
-   ```
-
-4. **Install the package in editable mode:**
-   ```bash
-   pip install --editable .
-   ```
-
-5. **Use the CLI for rolling dice:**
-   ```bash
-   dma roll 1d20
-    ```
----
-
-### Summary of Features for Version 1.0.0
-
-- **Dice Rolling**: Allows users to roll all D&D dice types using standard notation.
-- **Modifier Support**: Rolls can include modifiers to adjust the final result.
-- **Error Handling**: Proper validation and error messages for incorrect inputs.
-- **Initial Unit Tests**: Basic test cases included for core functionality.
-
----
-
-### What to Keep in Mind for Future Versions
-
-- **Future Features**: New features such as player management, shortcut support, and automated DM tasks (e.g., stealth checks) will be added in future updates.
-- **Bug Fixes**: Any discovered issues or bugs will be addressed in subsequent patch releases.
-
----
-
-## Notes
-
-This is the first stable release of DungeonMasterAssist, a simple command-line tool for DMs to manage dice rolls efficiently during Dungeons & Dragons sessions.
-
----
