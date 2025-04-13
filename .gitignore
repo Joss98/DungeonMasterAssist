@@ -11,5 +11,6 @@ dist/
 *.egg-info/
 
 .vscode/
+*.code-workspace
 
 .DS_Store
