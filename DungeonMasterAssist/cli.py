@@ -4,8 +4,29 @@ from prompt_toolkit.completion import Completer, Completion
 from prompt_toolkit.history import InMemoryHistory
 from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
 import shlex
+import os
 
-from DungeonMasterAssist import dice_logic, data_manager, player_manager
+from DungeonMasterAssist import dice_logic
+from DungeonMasterAssist.player_manager import PlayerManager, Player
+from DungeonMasterAssist.data_manager import DataManager
+
+# Initialize Managers
+DATA_FILE = "players.json"
+data_manager = DataManager(DATA_FILE)
+player_manager = PlayerManager()
+
+# Load data on startup
+loaded_data = data_manager.load_data()
+for p_data in loaded_data:
+    try:
+        player = Player.from_dict(p_data)
+        player_manager.add_player(player)
+    except Exception as e:
+        click.echo(f"Warning: Failed to load player data: {e}")
+
+def save_players():
+    data = [p.to_dict() for p in player_manager.list_players()]
+    data_manager.save_data(data)
 
 @click.group()
 def main():
@@ -27,11 +48,88 @@ def roll(dice_notation):
     else:
         click.echo("Please provide dice notation. Example: dma roll 2d6+3")
 
+# Player Management Commands
+@main.group()
+def player():
+    """Manage players."""
+    pass
+
+@player.command()
+@click.option('--name', required=True, help='Player Name')
+@click.option('--class', 'char_class', required=True, help='Character Class')
+@click.option('--level', required=True, type=int, help='Level')
+@click.option('--hp', required=True, type=int, help='Hit Points')
+@click.option('--ac', required=True, type=int, help='Armor Class')
+@click.option('--initiative', required=True, type=int, help='Initiative Modifier')
+def add(name, char_class, level, hp, ac, initiative):
+    """Add a new player."""
+    try:
+        new_player = Player(name, char_class, level, hp, ac, initiative)
+        player_manager.add_player(new_player)
+        save_players()
+        click.echo(f"Player '{name}' added.")
+    except ValueError as e:
+        click.echo(f"Error: {e}")
+
+@player.command()
+def list():
+    """List all players."""
+    players = player_manager.list_players()
+    if not players:
+        click.echo("No players found.")
+        return
+    
+    click.echo(f"{'Name':<15} {'Class':<10} {'Lvl':<5} {'HP':<5} {'AC':<5} {'Init':<5}")
+    click.echo("-" * 50)
+    for p in players:
+        click.echo(f"{p.name:<15} {p.char_class:<10} {p.level:<5} {p.hp:<5} {p.ac:<5} {p.initiative:<5}")
+
+@player.command()
+@click.option('--name', required=True, help='Player Name to remove')
+def remove(name):
+    """Remove a player."""
+    try:
+        player_manager.remove_player(name)
+        save_players()
+        click.echo(f"Player '{name}' removed.")
+    except ValueError as e:
+        click.echo(f"Error: {e}")
+
+@player.command()
+@click.option('--name', required=True, help='Player Name to update')
+@click.option('--class', 'char_class', help='New Character Class')
+@click.option('--level', type=int, help='New Level')
+@click.option('--hp', type=int, help='New Hit Points')
+@click.option('--ac', type=int, help='New Armor Class')
+@click.option('--initiative', type=int, help='New Initiative Modifier')
+def update(name, char_class, level, hp, ac, initiative):
+    """Update a player's stats."""
+    updates = {}
+    if char_class: updates['char_class'] = char_class
+    if level is not None: updates['level'] = level
+    if hp is not None: updates['hp'] = hp
+    if ac is not None: updates['ac'] = ac
+    if initiative is not None: updates['initiative'] = initiative
+    
+    if not updates:
+        click.echo("No updates provided.")
+        return
+
+    try:
+        player_manager.update_player(name, **updates)
+        save_players()
+        click.echo(f"Player '{name}' updated.")
+    except ValueError as e:
+        click.echo(f"Error: {e}")
+
+
 class DmaCompleter(Completer):
     """Custom completer for DungeonMasterAssist interactive mode."""
     def get_completions(self, document, complete_event):
         text = document.text_before_cursor.lstrip()
-        commands = ['roll', 'help', 'exit', 'quit']
+        commands = ['roll', 'help', 'exit', 'quit', 'player']
+        # Basic completion for top-level commands
+        # TODO: Improve nested command completion
         for cmd in commands:
             if cmd.startswith(text):
                 yield Completion(cmd, start_position=-len(text))
@@ -60,6 +158,7 @@ def interactive():
                 click.echo("""
 Available Commands:
   roll <dice_notation>     Roll dice using D&D notation (e.g., 2d6+3).
+  player                   Manage players (add, list, remove, update).
   help                     Show this help message.
   exit, quit               Exit interactive mode.
 """)

@@ -1,6 +1,7 @@
 venv/
 ENV/
 env/
+players.json
 
 __pycache__/
 *.py[cod]
