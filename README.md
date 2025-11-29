@@ -11,6 +11,7 @@ A command-line tool for Dungeon Masters to handle dice rolling and common DM tas
 - [Usage](#usage)
   - [Roll Dice](#roll-dice)
   - [Interactive Mode](#interactive-mode)
+  - [Player Management](#player-management)
   - [Help](#help)
 - [Features](#features)
 - [Roadmap](#roadmap)
@@ -95,6 +96,30 @@ dma> exit
 Exiting interactive mode.
 ```
 
+### Player Management
+
+Manage player characters and track their statistics.
+
+**Add a Player:**
+```bash
+dma player add --name "Aragorn" --class "Ranger" --level 5 --hp 45 --ac 16 --initiative 3
+```
+
+**List Players:**
+```bash
+dma player list
+```
+
+**Update a Player:**
+```bash
+dma player update --name "Aragorn" --hp 40
+```
+
+**Remove a Player:**
+```bash
+dma player remove --name "Aragorn"
+```
+
 ### Help
 
 To see all available commands and options:
@@ -104,15 +129,15 @@ dma --help
 
 ## Features
 
-- Interactive Mode: A REPL-like environment for executing commands efficiently.
-- Dice Rolling: Support for rolling standard D&D dice using standard notation.
-- Auto-Completion: Command auto-completion in interactive mode.
-- Session History: Navigate through command history using arrow keys.
-- Robust Error Handling: Graceful handling of exceptions and user interruptions.
+- **Interactive Mode**: A REPL-like environment for executing commands efficiently.
+- **Dice Rolling**: Support for rolling standard D&D dice using standard notation.
+- **Player Management**: Track player stats (Name, Class, Level, HP, AC, Initiative) and persist data between sessions.
+- **Auto-Completion**: Command auto-completion in interactive mode.
+- **Session History**: Navigate through command history using arrow keys.
+- **Robust Error Handling**: Graceful handling of exceptions and user interruptions.
 
 ## Roadmap
 
-- Player Management: Features for tracking player stats and information.
 - Shortcut Support: Implementing shortcuts for commonly used commands.
 - Automated DM Tasks: Tools for automating tasks like stealth checks.
 

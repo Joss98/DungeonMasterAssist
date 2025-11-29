@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [1.2.0] - 2025-11-29
+
+### Added
+- **Player Management**: Added commands to manage player characters (`add`, `list`, `update`, `remove`).
+- **Data Persistence**: Player data is now persisted in a `players.json` file.
+- **CLI Integration**: Integrated player management commands into the main CLI and interactive mode.
+
 ## [1.1.0] - 2024-11-23
 
 ### Added
